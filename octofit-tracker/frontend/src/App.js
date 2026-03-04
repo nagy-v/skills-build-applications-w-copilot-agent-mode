@@ -1,22 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h1>Welcome to OctoFit Tracker</h1>
+        <p>Your fitness activities in one place.</p>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Explore the <a href="/api/">API</a> or log in via the <a href="/admin/">admin</a>.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );

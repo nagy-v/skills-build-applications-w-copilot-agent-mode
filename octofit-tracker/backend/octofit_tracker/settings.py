@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-x3fe+$f2&w=*+y4cmhm&8or106kr_s7!w2e&l1rw7$q!4_5pxs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if os.environ.get('CODESPACE_NAME'):
+    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
 
 
 # Application definition
@@ -127,6 +129,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Frontend build directory (React) - used to serve production build
+FRONTEND_BUILD_DIR = BASE_DIR.parent / 'frontend' / 'build'
+
+# Serve React build index.html via Django templates
+TEMPLATES[0]['DIRS'] = [str(FRONTEND_BUILD_DIR)]
+
+# Static files (CSS, JavaScript, Images)
+STATICFILES_DIRS = [
+    str(FRONTEND_BUILD_DIR / 'static'),
+]
+
+# Where `collectstatic` will collect static files for production
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import os
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 codespace_name = os.environ.get('CODESPACE_NAME')
 if codespace_name:
@@ -34,6 +37,10 @@ router.register(r'leaderboard', LeaderboardViewSet)
 router.register(r'workouts', WorkoutViewSet)
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=str(settings.STATIC_ROOT))
